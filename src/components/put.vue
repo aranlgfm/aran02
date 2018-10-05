@@ -1,65 +1,87 @@
 <template>
     <div>
-        <input type="hidden" v-model="now" v-on="setDateToday()"/>
         <div class="feelBtns">
-            <vue-pikaday id="datePut" v-model="now" :options="pikadayOptions"/>
+            <vue-pikaday id="datePut" v-model="now" :options="pikadayOptions" :autoDefault="true"/>
             <input id="feelSet" type="text" readonly="readonly" v-model="feelState"/>
             <button class="btns" v-on:click="bad()">bad</button>
             <button class="btns" v-on:click="soso()">soso</button>
             <button class="btns" v-on:click="good()">good</button>
         </div>
         <div>
-            <input id="comm" type="text" v-model="comment" v-on:keyup="commentPut()"/>
+            <input id="comm" type="text" v-model="contents.comment"/>
             <button id="saveBtn" v-on:click="save()">{{saveBtn}}</button>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
 	data() {
 		return {
 			// 날짜, 감정, 간략한 감상
-			now: null,
 			pikadayOptions: {
 				format: 'YYYY MMM DD',
 			},
-			feel: 0,
-			comment: '',
 			feelState: '',
 			saveBtn: '+',
+			now: null,
+			contents: {
+				date: '',
+				feel: 0,
+				comment: '',
+			},
 		};
 	},
 	methods: {
-		setDateToday() {
-			// this.now = moment().format('DD MMM YYYY');
-			// var ss = moment().format();
-			// var ssss = ss.format('YYYY MMM DD');
-			this.now = moment();
-			console.log(moment() + '<<<<<<<<<<<<<<<<');
-			// this.now = ss;
-			// this.now = ssss;
-		},
 		bad() {
-			this.feel = 1;
+			this.contents.feel = 1;
 			this.feelState = 'bad';
-			console.log(this.feel + '<<<<<<<test');
+			console.log(this.contents.feel + '<<<<<<<test');
 		},
 		soso() {
-			this.feel = 2;
+			this.contents.feel = 2;
 			this.feelState = 'soso';
-			console.log(this.feel + '<<<<<<<test');
+			console.log(this.contents.feel + '<<<<<<<test');
 		},
 		good() {
-			this.feel = 3;
+			this.contents.feel = 3;
 			this.feelState = 'good';
-			console.log(this.feel + '<<<<<<<test');
-		},
-		commentPut() {
-			console.log(this.comment + 'test');
+			console.log(this.contents.feel + '<<<<<<<test');
 		},
 		save() {
 			console.log('save start');
+			// this.$http.get('http://localhost:3400/tes').then(res => {
+			// 	console.log(res.data.test);
+			// });
+			// this.$http.post('http://localhost:3400/teee').then(res => {
+			// 	console.log(res);
+			// });
+			// axios.get('http://localhost:3400/tes').then(res => {
+			// 	console.log(res.data.test);
+			// });
+			// axios.post('http://localhost:3400/aranTest');
+			// this.$http.post('http://localhost:3400/aranTest', {
+			// 	name: 'aran mimi',
+			// 	msg: 'hello!!',
+			// });
+			this.contents.date = moment(this.now).format('YYYY MMM DD');
+			console.log('comment : ' + this.comment + ':::: feel : ' + this.feel + ':::: date : ' + this.contents.date);
+			axios.post('http://localhost:3001/add', this.contents).then(res => {
+				console.log(res.data);
+			});
+			// this.$http.get('http://localhost:3001/');
+			// axios
+			// 	.post('http://localhost:3400/aranTest', {
+			// 		params: {
+			// 			name: 'aran mimi',
+			// 			msg: 'hello!',
+			// 		},
+			// 	})
+			// 	.then(res => {
+			// 		console.log(res);
+			// 	});
 		},
 	},
 };

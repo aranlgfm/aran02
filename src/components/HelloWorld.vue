@@ -3,11 +3,14 @@
 	  <div id="head"></div>
 	  <button id="addBtn" name="addBtn" v-on:click="addClick()">{{add}}</button>
 	  <component :is="whichComp"></component>
+	  <div>test</div>
+	  <feelist></feelist>
   </div>
 </template>
 
 <script>
 import put from './put';
+import feelist from './list';
 
 export default {
 	name: 'HelloWorld',
@@ -20,6 +23,7 @@ export default {
 	},
 	components: {
 		put,
+		feelist,
 	},
 	methods: {
 		addClick() {
@@ -30,7 +34,6 @@ export default {
 			}
 
 			console.log('add click');
-			console.log(this.onClick + '<<<<<<<<<<<<<<<');
 		},
 	},
 	computed: {

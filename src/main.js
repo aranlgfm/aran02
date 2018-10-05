@@ -5,8 +5,10 @@ import App from './App'
 import router from './router'
 import VuePikaday from '@enrian/vue-pikaday'
 import '@enrian/vue-pikaday/dist/vue-pikaday.min.css';
+import axios from 'axios'
 
 Vue.config.productionTip = false
+Vue.prototype.$http = axios
 
 /* eslint-disable no-new */
 new Vue({
