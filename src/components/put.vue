@@ -52,36 +52,19 @@ export default {
 		},
 		save() {
 			console.log('save start');
-			// this.$http.get('http://localhost:3400/tes').then(res => {
-			// 	console.log(res.data.test);
-			// });
-			// this.$http.post('http://localhost:3400/teee').then(res => {
-			// 	console.log(res);
-			// });
-			// axios.get('http://localhost:3400/tes').then(res => {
-			// 	console.log(res.data.test);
-			// });
-			// axios.post('http://localhost:3400/aranTest');
-			// this.$http.post('http://localhost:3400/aranTest', {
-			// 	name: 'aran mimi',
-			// 	msg: 'hello!!',
-			// });
 			this.contents.date = moment(this.now).format('YYYY MMM DD');
 			console.log('comment : ' + this.comment + ':::: feel : ' + this.feel + ':::: date : ' + this.contents.date);
-			axios.post('http://localhost:3001/add', this.contents).then(res => {
-				console.log(res.data);
-			});
-			// this.$http.get('http://localhost:3001/');
-			// axios
-			// 	.post('http://localhost:3400/aranTest', {
-			// 		params: {
-			// 			name: 'aran mimi',
-			// 			msg: 'hello!',
-			// 		},
-			// 	})
-			// 	.then(res => {
-			// 		console.log(res);
-			// 	});
+			axios
+				.post('http://localhost:3001/add', this.contents, {
+					'Access-Control-Allow-Origin': '*',
+					'content-type': 'application/json',
+				})
+				.then(res => {
+					console.log(res.data);
+				});
+
+			// 화면 리로드. 이정도로 일단 만족. 추후 수정할 것
+			location.reload();
 		},
 	},
 };

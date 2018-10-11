@@ -1,53 +1,50 @@
 <template>
-<div id="app">
-    <!-- <table id="userList">
-        <th>objectid</th>
-        <th>userid</th>
-        <th>username</th>
+<div id="list">
+    <table id="userList">
+        <th>날짜</th>
+        <th>기분</th>
+        <th>기분설명</th>
         <tr v-for="feel in feels" v-bind:key="feel._id">
+            <td>{{feel.feeldate}}</td>
+            <td>{{feel.feelfeel}}</td>
             <td>{{feel.feeltext}}</td>
         </tr>
-    </table> -->
-	<li v-for="(item, index) in tes12" v-bind:key="index">{{item.tesname}} + asfd</li>
-	<div>--------------------------</div>
-	<li v-for="(item, index) in feels" v-bind:key="index">{{item}} + asfd</li>
-    <div>aran test {{feels}}</div>
+    </table>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { parse, patch } from 'semver';
+import Axios from 'axios';
 
 export default {
-	name: 'app',
+	name: 'list',
 	data() {
 		return {
-			feels: [],
-			tes12: [{ tesname: 'test1', tesmimi: 'test123' }, { tesname: 'test2', tesmimi: 'test111' }],
+			feels: null,
 		};
 	},
 	mounted() {
 		this.getList();
 	},
 	methods: {
-		getList: () => {
-			axios
-				.get('http://localhost:3001/')
+		getList() {
+			Axios.get('http://localhost:3001/')
 				.then(res => {
-					this.feels = res.data.feels;
-
-					// res.data.feels.forEach(element => {
-					// 	// console.log(element);
-					// 	this.feels = element;
-					// });
-					// this.feels = Object.setPrototypeOf(this.feels);
-					console.log(this.feels);
+					this.feels = res.data;
 				})
 				.catch(e => {
 					console.log(e);
 				});
 		},
+		pri() {
+			console.log('success !!!!!!!!!!!!!!!!');
+		},
 	},
+};
+
+export const pri = () => {
+	console.log('pri start');
 };
 </script>

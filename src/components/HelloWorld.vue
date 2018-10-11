@@ -3,8 +3,9 @@
 	  <div id="head"></div>
 	  <button id="addBtn" name="addBtn" v-on:click="addClick()">{{add}}</button>
 	  <component :is="whichComp"></component>
-	  <div>test</div>
+	  <div><button id="addBtn" v-on:click="testFu()">test btn</button></div>
 	  <feelist></feelist>
+
   </div>
 </template>
 
@@ -32,8 +33,10 @@ export default {
 			} else {
 				this.onClick = 0;
 			}
-
 			console.log('add click');
+		},
+		testFu() {
+			console.log('test fu start');
 		},
 	},
 	computed: {
@@ -41,7 +44,6 @@ export default {
 			switch (this.onClick) {
 				case 1:
 					return put;
-
 				default:
 					return null;
 			}

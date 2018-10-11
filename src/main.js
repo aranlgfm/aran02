@@ -15,7 +15,9 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
 })
+
+export const Eve = new Vue();
 
 Vue.use(VuePikaday)
